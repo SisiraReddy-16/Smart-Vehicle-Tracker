@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GaragePulse - Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <span class="material-symbols-outlined icon-btn" title="Log out" id="logout-btn">settings</span>
+  <h1 class="brand">GaragePulse</h1>
+  <nav class="desktop-nav">
+    <a href="../my-garage/index.html">Garage</a>
+    <a href="#notifications" class="active">Alerts</a>
+    <a href="../cost-analytics/index.html">Costs</a>
+    <a href="../profile/index.html">Profile</a>
+  </nav>
+  <a href="../profile/index.html" class="avatar" title="Profile"><span class="material-symbols-outlined">person</span></a>
+</header>
+
+<main class="content">
+  <section class="welcome">
+    <div class="welcome-avatar"><span class="material-symbols-outlined">person</span></div>
+    <div>
+      <h2 id="welcome-heading">Welcome back!</h2>
+      <p>Ready to roll?</p>
+    </div>
+  </section>
+
+  <section class="inventory-banner">
+    <div>
+      <p class="eyebrow">Garage Inventory</p>
+      <h3 id="vehicle-count">My Vehicles: -</h3>
+    </div>
+    <span class="material-symbols-outlined bg-icon">directions_car</span>
+  </section>
+
+  <section class="alert-grid">
+    <a href="../service-history/index.html" class="alert-tile tile-blue">
+      <span class="material-symbols-outlined">handyman</span>
+      <span>Upcoming<br>Service</span>
+    </a>
+    <a href="../insurance-history/index.html" class="alert-tile tile-orange">
+      <span class="material-symbols-outlined">security</span>
+      <span>Insurance<br>Expiring</span>
+    </a>
+    <a href="../puc-history/index.html" class="alert-tile tile-green">
+      <span class="material-symbols-outlined">air</span>
+      <span>PUC<br>Expiring</span>
+    </a>
+    <a href="../cost-analytics/index.html" class="alert-tile tile-yellow">
+      <span class="material-symbols-outlined">monetization_on</span>
+      <span>Total<br>Cost</span>
+      <span id="upcoming-cost" class="tile-sub">-</span>
+    </a>
+  </section>
+
+  <section class="notifications" id="notifications">
+    <h3><span class="material-symbols-outlined">notifications_active</span> Notifications</h3>
+    <div class="notif-list" id="notif-list">
+      <p class="notif-empty">Loading notifications...</p>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <a href="../my-garage/index.html" class="active"><span class="material-symbols-outlined">garage</span><span>Garage</span></a>
+  <a href="#notifications"><span class="material-symbols-outlined">notifications</span><span>Alerts</span></a>
+  <a href="../my-garage/index.html#add-vehicle-modal"><span class="material-symbols-outlined">add_circle</span><span>Add</span></a>
+  <a href="../cost-analytics/index.html"><span class="material-symbols-outlined">payments</span><span>Costs</span></a>
+  <a href="../profile/index.html"><span class="material-symbols-outlined">person</span><span>Profile</span></a>
+</nav>
+<script src="../assets/api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

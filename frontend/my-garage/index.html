@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Garage - GaragePulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <span class="material-symbols-outlined icon-btn" title="Log out" id="logout-btn">settings</span>
+  <h1 class="brand">GaragePulse</h1>
+  <nav class="desktop-nav">
+    <a href="index.html" class="active">Garage</a>
+    <a href="../dashboard/index.html#notifications">Alerts</a>
+    <a href="../cost-analytics/index.html">Costs</a>
+    <a href="../profile/index.html">Profile</a>
+  </nav>
+  <a href="../profile/index.html" class="avatar" title="Profile"><span class="material-symbols-outlined">person</span></a>
+</header>
+
+<main class="content wide">
+  <div class="page-head">
+    <div>
+      <h2>My Garage <span class="material-symbols-outlined float">garage_home</span></h2>
+      <p>Manage your rides and keep them purring.</p>
+    </div>
+    <button class="btn-primary" id="open-modal-desktop"><span class="material-symbols-outlined">add_circle</span>Add Vehicle</button>
+  </div>
+
+  <div class="vehicle-grid">
+    <div id="vehicle-cards" class="vehicle-cards-slot">
+      <p class="loading-text">Loading your vehicles...</p>
+    </div>
+
+    <div class="add-card" id="open-modal-tile">
+      <div class="add-icon"><span class="material-symbols-outlined">add_circle</span></div>
+      <h3>Got a new ride?</h3>
+      <p>Add another vehicle to your garage shelf.</p>
+    </div>
+  </div>
+</main>
+
+<nav class="bottom-nav">
+  <a href="index.html" class="active"><span class="material-symbols-outlined">garage</span><span>Garage</span></a>
+  <a href="../dashboard/index.html#notifications"><span class="material-symbols-outlined">notifications</span><span>Alerts</span></a>
+  <a href="#" id="open-modal-mobile"><span class="material-symbols-outlined">add_circle</span><span>Add</span></a>
+  <a href="../cost-analytics/index.html"><span class="material-symbols-outlined">payments</span><span>Costs</span></a>
+  <a href="../profile/index.html"><span class="material-symbols-outlined">person</span><span>Profile</span></a>
+</nav>
+
+<!-- Add Vehicle Modal -->
+<div class="modal-overlay hidden" id="add-vehicle-modal">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card">
+    <button class="modal-close" data-close><span class="material-symbols-outlined">close</span></button>
+    <div class="modal-head">
+      <div class="modal-icon"><span class="material-symbols-outlined">add_road</span></div>
+      <h2>Park a New Ride</h2>
+    </div>
+    <form id="add-vehicle-form">
+      <div class="form-field">
+        <label>License Plate / Number</label>
+        <input type="text" id="vehicle-plate" placeholder="e.g. MH01-AB-1234" required>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Brand</label>
+          <input type="text" id="vehicle-brand" placeholder="e.g. Honda" required>
+        </div>
+        <div class="form-field">
+          <label>Model</label>
+          <input type="text" id="vehicle-model" placeholder="e.g. City" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Type</label>
+          <div class="type-toggle">
+            <button type="button" class="type-btn active" data-type="Car">Car</button>
+            <button type="button" class="type-btn" data-type="Bike">Bike</button>
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Year</label>
+          <input type="number" id="vehicle-year" placeholder="2023" min="1980" max="2100">
+        </div>
+      </div>
+      <p id="form-error" class="form-error hidden"></p>
+      <button type="submit" class="btn-primary full" id="submit-btn"><span class="material-symbols-outlined">save</span>Save to Garage</button>
+    </form>
+  </div>
+</div>
+
+<script src="../assets/api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

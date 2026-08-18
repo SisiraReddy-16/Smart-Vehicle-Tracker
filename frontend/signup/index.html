@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GaragePulse - Sign Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap">
+  <div class="hero-banner">
+    <img src="https://lh3.googleusercontent.com/aida/AP1WRLvLxGcuVcoJh-2aGaJoIuLLzmSAGtPpLVqvtJGmL08x7A6Cluo9ssOwOEqQgCftmriqg8wb0OuaPlDh2BMr4UFYJqDYVeaj8iT6LtdzR2LFmC-jEAPhtdEFF1CzPc7w1X7erHNfE7hj8agTIYLj8eP_W4zAvXj_xeP4cnCzqcaY-13Uc9bMjD_daZIbaPzD4Irv1_pKk2H8P7GQomw9Sfav9i0SZ4wlgzzgMCaOeL6r2rZ0or9ejIQQol03" alt="Garage illustration">
+    <div class="float-badge top"><span class="material-symbols-outlined">build</span></div>
+    <div class="float-badge bottom"><span class="material-symbols-outlined">settings</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h1>Join the Garage</h1>
+      <p>Rev up your profile and get started.</p>
+    </div>
+    <form id="signup-form">
+      <div class="field">
+        <span class="material-symbols-outlined">person</span>
+        <input id="username" type="text" placeholder="Username" required>
+      </div>
+      <div class="field">
+        <span class="material-symbols-outlined">phone_iphone</span>
+        <input id="mobile" type="tel" placeholder="Mobile Number" required>
+      </div>
+      <div class="field">
+        <span class="material-symbols-outlined">lock</span>
+        <input id="password" type="password" placeholder="Password" required>
+      </div>
+      <div class="field">
+        <span class="material-symbols-outlined">lock</span>
+        <input id="confirm_password" type="password" placeholder="Confirm Password" required>
+      </div>
+      <p id="form-error" class="form-error hidden"></p>
+      <button type="submit" class="btn-primary" id="submit-btn">
+        <span>Create Account</span>
+        <span class="material-symbols-outlined">play_arrow</span>
+      </button>
+    </form>
+    <a href="../login/index.html" class="login-note">Already have an account? Sign In</a>
+  </div>
+</main>
+<script src="../assets/api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insurance History - Car Garage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <span class="material-symbols-outlined icon-btn" title="Log out" id="logout-btn">settings</span>
+  <h1 class="brand">CAR GARAGE</h1>
+  <nav class="desktop-nav">
+    <a href="../my-garage/index.html">Garage</a>
+    <a href="../dashboard/index.html#notifications">Alerts</a>
+    <a href="../cost-analytics/index.html" class="active">Costs</a>
+    <a href="../profile/index.html">Profile</a>
+  </nav>
+  <a href="../profile/index.html" class="avatar" title="Profile"><span class="material-symbols-outlined">person</span></a>
+</header>
+
+<main class="content">
+  <div class="page-head">
+    <a href="../my-garage/index.html" class="icon-btn"><span class="material-symbols-outlined">arrow_back</span></a>
+    <h2 class="page-title">Insurance History</h2>
+  </div>
+
+  <div class="header-actions">
+    <select id="vehicle-select" class="vehicle-select"><option>Loading vehicles...</option></select>
+    <button class="btn-renew" id="add-insurance-btn"><span class="material-symbols-outlined">add</span> Add Policy</button>
+  </div>
+
+  <section class="active-policy" id="active-policy-card">
+    <span class="material-symbols-outlined watermark">shield</span>
+    <div class="policy-row">
+      <div>
+        <p class="eyebrow">Active Policy</p>
+        <div class="policy-id"><span class="material-symbols-outlined">verified_user</span><h3 id="active-policy-number">-</h3></div>
+        <p class="valid-text" id="active-policy-valid">-</p>
+      </div>
+      <div class="policy-actions">
+        <span class="status-pill" id="active-policy-status"><span class="material-symbols-outlined">check_circle</span> -</span>
+      </div>
+    </div>
+  </section>
+
+  <h3 class="section-title"><span class="material-symbols-outlined">history</span> All Policies</h3>
+  <p class="loading-text hidden" id="empty-state">No insurance policies logged yet for this vehicle.</p>
+  <div class="policy-list" id="policy-list"></div>
+</main>
+
+<nav class="bottom-nav">
+  <a href="../my-garage/index.html"><span class="material-symbols-outlined">garage</span><span>Garage</span></a>
+  <a href="../dashboard/index.html#notifications"><span class="material-symbols-outlined">notifications</span><span>Alerts</span></a>
+  <a href="../my-garage/index.html#add-vehicle-modal" class="fab"><span class="material-symbols-outlined">add_box</span></a>
+  <a href="../cost-analytics/index.html" class="active"><span class="material-symbols-outlined">payments</span><span>Costs</span></a>
+  <a href="../profile/index.html"><span class="material-symbols-outlined">person</span><span>Profile</span></a>
+</nav>
+
+<!-- Add Insurance Modal -->
+<div class="modal-overlay hidden" id="add-insurance-modal">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card">
+    <button class="modal-close" data-close><span class="material-symbols-outlined">close</span></button>
+    <div class="modal-head">
+      <div class="modal-icon"><span class="material-symbols-outlined">shield</span></div>
+      <h2>Add Insurance Policy</h2>
+    </div>
+    <form id="add-insurance-form">
+      <div class="form-field">
+        <label>Provider Name</label>
+        <input type="text" id="ins-provider" placeholder="e.g. HDFC ERGO" required>
+      </div>
+      <div class="form-field">
+        <label>Policy Number</label>
+        <input type="text" id="ins-policy-number" placeholder="e.g. POL-9824-771X" required>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Start Date</label>
+          <input type="date" id="ins-start-date" required>
+        </div>
+        <div class="form-field">
+          <label>End Date</label>
+          <input type="date" id="ins-end-date" required>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Premium (₹)</label>
+        <input type="number" id="ins-premium" placeholder="e.g. 8450" min="0" step="0.01" required>
+      </div>
+      <p id="form-error" class="form-error hidden"></p>
+      <button type="submit" class="btn-primary full" id="submit-btn">Save Policy</button>
+    </form>
+  </div>
+</div>
+
+<script src="../assets/api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

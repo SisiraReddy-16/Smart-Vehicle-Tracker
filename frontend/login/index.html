@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GaragePulse - Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page-wrap">
+  <div class="login-card">
+    <div class="hero-image">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQWDJ2mhdgVwVGrGEqzthSI1_Ly1yfp6nHV9KAkkpAJ29H8yaZxUbJSwxqeCMkywhSIkkZkrltgr8LbzY1QZeEy7baI3pfH6yE3pMX9qHhvUWuivb97u4BbJT6TsaDFftW5ViKVLsEHEoYNyvPk54f2Y8yhX8AYOLXkQiDiHQzqc4KB1KCqE-lidRv1xrOfeIfQRubrbA74yXmTk_HRH_F8atxH7pDfch5Sc5fkLsrpZNFu6ls0PwdEQ" alt="Garage illustration">
+      <div class="hero-glow"></div>
+    </div>
+    <div class="form-area">
+      <div class="brand">
+        <h1>GaragePulse</h1>
+        <p>Rev up your maintenance routine!</p>
+      </div>
+      <form id="login-form">
+        <div class="field">
+          <label for="username"><span class="material-symbols-outlined">person</span>Username</label>
+          <input id="username" type="text" placeholder="MechanicMike99">
+        </div>
+        <div class="field">
+          <label for="password"><span class="material-symbols-outlined">key</span>Password</label>
+          <input id="password" type="password" placeholder="••••••••">
+        </div>
+        <div class="row-between">
+          <label class="checkbox">
+            <input type="checkbox" id="remember">
+            <span class="box"><span class="material-symbols-outlined check">check</span></span>
+            Remember Me
+          </label>
+          <a href="#" class="link-muted">Forgot Pwd?</a>
+        </div>
+        <p id="form-error" class="form-error hidden"></p>
+        <button type="submit" class="btn-primary" id="submit-btn">
+          <span>Sign In</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </form>
+      <p class="signup-note">Don't have an account? <a href="../signup/index.html">Sign Up</a></p>
+    </div>
+  </div>
+</div>
+<script src="../assets/api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

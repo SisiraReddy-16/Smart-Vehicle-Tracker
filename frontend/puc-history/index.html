@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PUC History - Car Garage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <span class="material-symbols-outlined icon-btn" title="Log out" id="logout-btn">settings</span>
+  <h1 class="brand">CAR GARAGE</h1>
+  <nav class="desktop-nav">
+    <a href="../my-garage/index.html">Garage</a>
+    <a href="../dashboard/index.html#notifications">Alerts</a>
+    <a href="../cost-analytics/index.html">Costs</a>
+    <a href="../profile/index.html">Profile</a>
+  </nav>
+  <a href="../profile/index.html" class="avatar" title="Profile"><span class="material-symbols-outlined">person</span></a>
+</header>
+
+<main class="content">
+  <div class="header-actions">
+    <select id="vehicle-select" class="vehicle-select"><option>Loading vehicles...</option></select>
+    <button class="filter-btn" id="add-puc-btn"><span class="material-symbols-outlined">add</span> Add PUC Record</button>
+  </div>
+
+  <section class="hero-card">
+    <span class="material-symbols-outlined watermark">air</span>
+    <div class="hero-head">
+      <div class="hero-icon"><span class="material-symbols-outlined">co2</span></div>
+      <h2>Next PUC Due</h2>
+    </div>
+    <div class="hero-body">
+      <p class="hero-date" id="next-puc-date">-</p>
+      <div class="action-pill" id="puc-status-pill"><span class="dot"></span> <span id="puc-status-text">-</span></div>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h3>Certificate History</h3>
+    <span class="material-symbols-outlined">history</span>
+  </div>
+
+  <p class="loading-text hidden" id="empty-state">No PUC records yet for this vehicle. Add the first one!</p>
+  <div class="cert-list" id="cert-list"></div>
+</main>
+
+<nav class="bottom-nav">
+  <a href="../my-garage/index.html"><span class="material-symbols-outlined">garage</span><span>Garage</span></a>
+  <a href="../dashboard/index.html#notifications"><span class="material-symbols-outlined">notifications</span><span>Alerts</span></a>
+  <a href="../my-garage/index.html#add-vehicle-modal" class="fab"><span class="material-symbols-outlined">add_box</span></a>
+  <a href="../cost-analytics/index.html"><span class="material-symbols-outlined">payments</span><span>Costs</span></a>
+  <a href="../profile/index.html"><span class="material-symbols-outlined">person</span><span>Profile</span></a>
+</nav>
+
+<!-- Add PUC Modal -->
+<div class="modal-overlay hidden" id="add-puc-modal">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card">
+    <button class="modal-close" data-close><span class="material-symbols-outlined">close</span></button>
+    <div class="modal-head">
+      <div class="modal-icon"><span class="material-symbols-outlined">co2</span></div>
+      <h2>Add PUC Record</h2>
+    </div>
+    <form id="add-puc-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Test Date</label>
+          <input type="date" id="puc-test-date" required>
+        </div>
+        <div class="form-field">
+          <label>Valid Until</label>
+          <input type="date" id="puc-valid-until" required>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Certificate Number</label>
+        <input type="text" id="puc-cert-number" placeholder="e.g. DL-PUC-90210">
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Result</label>
+          <select id="puc-result">
+            <option value="Pass">Pass</option>
+            <option value="Fail">Fail</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Cost (₹)</label>
+          <input type="number" id="puc-cost" placeholder="500" min="0" step="0.01">
+        </div>
+      </div>
+      <p id="form-error" class="form-error hidden"></p>
+      <button type="submit" class="btn-primary full" id="submit-btn">Save Record</button>
+    </form>
+  </div>
+</div>
+
+<script src="../assets/api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

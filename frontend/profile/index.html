@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile - GaragePulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <span class="material-symbols-outlined icon-btn" title="Log out" id="logout-btn">settings</span>
+  <h1 class="brand">GaragePulse</h1>
+  <nav class="desktop-nav">
+    <a href="../my-garage/index.html">Garage</a>
+    <a href="../dashboard/index.html#notifications">Alerts</a>
+    <a href="../cost-analytics/index.html">Costs</a>
+    <a href="index.html" class="active">Profile</a>
+  </nav>
+  <a href="index.html" class="avatar" title="Profile"><span class="material-symbols-outlined">person</span></a>
+</header>
+
+<main class="content narrow">
+  <section class="profile-card">
+    <div class="profile-avatar"><span class="material-symbols-outlined">person</span></div>
+    <h2 id="profile-username">Loading...</h2>
+    <p class="muted" id="profile-mobile">-</p>
+  </section>
+
+  <section class="profile-stats">
+    <div class="stat-card">
+      <span class="material-symbols-outlined">directions_car</span>
+      <div>
+        <p class="stat-value" id="profile-vehicle-count">-</p>
+        <p class="stat-label">Vehicles in Garage</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="profile-actions">
+    <a href="../my-garage/index.html" class="action-row">
+      <span class="material-symbols-outlined">garage</span>
+      <span>My Garage</span>
+      <span class="material-symbols-outlined chevron">chevron_right</span>
+    </a>
+    <a href="../cost-analytics/index.html" class="action-row">
+      <span class="material-symbols-outlined">payments</span>
+      <span>Cost Analytics</span>
+      <span class="material-symbols-outlined chevron">chevron_right</span>
+    </a>
+    <button class="action-row danger" id="logout-row" type="button">
+      <span class="material-symbols-outlined">logout</span>
+      <span>Log Out</span>
+    </button>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <a href="../my-garage/index.html"><span class="material-symbols-outlined">garage</span><span>Garage</span></a>
+  <a href="../dashboard/index.html#notifications"><span class="material-symbols-outlined">notifications</span><span>Alerts</span></a>
+  <a href="../my-garage/index.html#add-vehicle-modal"><span class="material-symbols-outlined">add_circle</span><span>Add</span></a>
+  <a href="../cost-analytics/index.html"><span class="material-symbols-outlined">payments</span><span>Costs</span></a>
+  <a href="index.html" class="active"><span class="material-symbols-outlined">person</span><span>Profile</span></a>
+</nav>
+<script src="../assets/api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

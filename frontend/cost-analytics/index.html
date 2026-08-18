@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maintenance Cost Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a href="../dashboard/index.html" class="icon-btn"><span class="material-symbols-outlined">arrow_back</span></a>
+  <h1 class="brand">GaragePulse</h1>
+  <nav class="desktop-nav">
+    <a href="../my-garage/index.html">Garage</a>
+    <a href="../dashboard/index.html#notifications">Alerts</a>
+    <a href="index.html" class="active">Costs</a>
+    <a href="../profile/index.html">Profile</a>
+  </nav>
+  <a href="../profile/index.html" class="avatar" title="Profile"><span class="material-symbols-outlined">person</span></a>
+</header>
+
+<main class="content">
+  <div class="row-between">
+    <h2 class="page-title">Cost Breakdown</h2>
+    <span class="yearly-pill">All Time</span>
+  </div>
+
+  <div class="breakdown-grid">
+    <a href="../service-history/index.html" class="cost-row">
+      <div class="cost-icon bg-tertiary"><span class="material-symbols-outlined">build</span></div>
+      <h3>Services &amp; Repairs</h3>
+      <span class="amount" id="service-total">-</span>
+    </a>
+    <a href="../insurance-history/index.html" class="cost-row">
+      <div class="cost-icon bg-secondary"><span class="material-symbols-outlined">shield</span></div>
+      <h3>Insurance</h3>
+      <span class="amount" id="insurance-total">-</span>
+    </a>
+    <a href="../puc-history/index.html" class="cost-row">
+      <div class="cost-icon bg-tertiary-fixed"><span class="material-symbols-outlined">assignment</span></div>
+      <h3>PUC</h3>
+      <span class="amount" id="puc-total">-</span>
+    </a>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="total-card">
+    <span class="eyebrow">Total Expense (all time)</span>
+    <span class="total" id="grand-total">-</span>
+    <p class="note" id="upcoming-note">Loading upcoming dues...</p>
+  </div>
+</main>
+
+<nav class="bottom-nav">
+  <a href="../my-garage/index.html"><span class="material-symbols-outlined">garage</span><span>Garage</span></a>
+  <a href="../dashboard/index.html#notifications"><span class="material-symbols-outlined">notifications</span><span>Alerts</span></a>
+  <a href="../my-garage/index.html#add-vehicle-modal"><span class="material-symbols-outlined">add_circle</span><span>Add</span></a>
+  <a href="#" class="active"><span class="material-symbols-outlined">payments</span><span>Costs</span></a>
+  <a href="../profile/index.html"><span class="material-symbols-outlined">person</span><span>Profile</span></a>
+</nav>
+<script src="../assets/api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

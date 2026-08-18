@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAR GARAGE - Service History</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <span class="material-symbols-outlined icon-btn" title="Log out" id="logout-btn">settings</span>
+  <h1 class="brand">CAR GARAGE</h1>
+  <nav class="desktop-nav">
+    <a href="../my-garage/index.html">Garage</a>
+    <a href="../dashboard/index.html#notifications">Alerts</a>
+    <a href="../cost-analytics/index.html">Costs</a>
+    <a href="../profile/index.html">Profile</a>
+  </nav>
+  <a href="../profile/index.html" class="avatar" title="Profile"><span class="material-symbols-outlined">person</span></a>
+</header>
+
+<main class="content">
+  <div class="row-between">
+    <h2 class="page-title">Service History</h2>
+    <div class="header-actions">
+      <select id="vehicle-select" class="vehicle-select"><option>Loading vehicles...</option></select>
+      <button class="filter-btn" id="add-service-btn"><span class="material-symbols-outlined">add</span>Add Service</button>
+    </div>
+  </div>
+
+  <div class="upcoming-banner">
+    <div class="upcoming-left">
+      <div class="upcoming-icon"><span class="material-symbols-outlined">calendar_month</span></div>
+      <div>
+        <p class="eyebrow">Next Service Due</p>
+        <p class="upcoming-date" id="next-due-date">-</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="loading-text hidden" id="empty-state">No service records yet for this vehicle. Add the first one!</p>
+  <div class="timeline" id="timeline"></div>
+</main>
+
+<nav class="bottom-nav">
+  <a href="../my-garage/index.html" class="active"><span class="material-symbols-outlined">garage</span><span>Garage</span></a>
+  <a href="../dashboard/index.html#notifications"><span class="material-symbols-outlined">notifications</span><span>Alerts</span></a>
+  <a href="../my-garage/index.html#add-vehicle-modal" class="fab"><span class="material-symbols-outlined">add_box</span></a>
+  <a href="../cost-analytics/index.html"><span class="material-symbols-outlined">payments</span><span>Costs</span></a>
+  <a href="../profile/index.html"><span class="material-symbols-outlined">person</span><span>Profile</span></a>
+</nav>
+
+<!-- Add Service Modal -->
+<div class="modal-overlay hidden" id="add-service-modal">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card">
+    <button class="modal-close" data-close><span class="material-symbols-outlined">close</span></button>
+    <div class="modal-head">
+      <div class="modal-icon"><span class="material-symbols-outlined">build</span></div>
+      <h2>Log a Service</h2>
+    </div>
+    <form id="add-service-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Service Date</label>
+          <input type="date" id="service-date" required>
+        </div>
+        <div class="form-field">
+          <label>Cost (₹)</label>
+          <input type="number" id="service-cost" placeholder="e.g. 3200" min="0" step="0.01" required>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Service Type</label>
+        <input type="text" id="service-type" placeholder="e.g. Oil Change & Filter" required>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Shop Name</label>
+          <input type="text" id="service-shop" placeholder="e.g. Bob's Auto Shop">
+        </div>
+        <div class="form-field">
+          <label>Next Due Date</label>
+          <input type="date" id="service-next-due">
+        </div>
+      </div>
+      <p id="form-error" class="form-error hidden"></p>
+      <button type="submit" class="btn-primary full" id="submit-btn">Save Service Record</button>
+    </form>
+  </div>
+</div>
+
+<script src="../assets/api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
