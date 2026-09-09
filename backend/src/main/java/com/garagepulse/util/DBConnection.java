@@ -7,18 +7,6 @@ import java.io.InputStream;
 import java.util.ArrayDeque;
 import java.util.Properties;
 
-/**
- * Hands out pooled JDBC connections instead of opening a brand-new physical
- * connection on every request. Opening a raw TCP + MySQL handshake per
- * request is by far the most expensive (and most failure-prone) part of
- * every servlet call -- pooling a handful of already-authenticated
- * connections keeps memory/CPU use low and makes "the DB isn't reachable"
- * fail fast and clearly instead of hanging.
- *
- * The pool is intentionally simple (no external dependency): a bounded
- * stack of idle connections behind a lock. Good enough for a project this
- * size; swap for HikariCP/DBCP if this ever needs to scale further.
- */
 public class DBConnection {
 
     private static final int MAX_POOL_SIZE = 10;
@@ -41,9 +29,9 @@ public class DBConnection {
             Properties props = new Properties();
             props.load(in);
 
-            URL = envOrDefault("DB_URL", props.getProperty("db.url"));
-            USER = envOrDefault("DB_USER", props.getProperty("db.user"));
-            PASSWORD = envOrDefault("DB_PASSWORD", props.getProperty("db.password"));
+            URL = envOrDefault("DB_URL", props.getProperty("db.url"), "db.url");
+            USER = envOrDefault("DB_USER", props.getProperty("db.user"), "db.user");
+            PASSWORD = envOrDefault("DB_PASSWORD", props.getProperty("db.password"), "db.password");
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             DriverManager.setLoginTimeout(CONNECT_TIMEOUT_SECONDS);
@@ -52,19 +40,32 @@ public class DBConnection {
         }
     }
 
-    private static String envOrDefault(String envKey, String fallback) {
+    /**
+     * Resolves a config value from an env var first, db.properties second -
+     * and PRINTS which one won, plus a masked preview, so it's never a
+     * silent mystery which credentials are actually in use. Check your
+     * Tomcat/console log on startup if login/signup ever behaves
+     * unexpectedly - this line tells you immediately.
+     */
+    private static String envOrDefault(String envKey, String fallback, String propKey) {
         String value = System.getenv(envKey);
-        return (value != null && !value.isEmpty()) ? value : fallback;
+        if (value != null && !value.isEmpty()) {
+            System.out.println("[GaragePulse] " + propKey + " <- environment variable " + envKey
+                    + " = " + mask(value) + "  (overrides db.properties)");
+            return value;
+        }
+        System.out.println("[GaragePulse] " + propKey + " <- db.properties = " + mask(fallback));
+        return fallback;
+    }
+
+    private static String mask(String value) {
+        if (value == null || value.isEmpty()) return "(empty)";
+        if (value.length() <= 2) return "**";
+        return value.charAt(0) + "***" + value.charAt(value.length() - 1) + " (" + value.length() + " chars)";
     }
 
     private DBConnection() { }
 
-    /**
-     * Borrows a pooled connection (creating a new physical one only when the
-     * pool is empty and under its size cap). Every caller MUST use
-     * try-with-resources on the returned Connection -- close() on a pooled
-     * connection returns it to the pool instead of really closing it.
-     */
     public static Connection get() throws SQLException {
         synchronized (LOCK) {
             while (!POOL.isEmpty()) {
@@ -82,8 +83,6 @@ public class DBConnection {
             synchronized (LOCK) { totalCreated++; }
             return wrap(fresh);
         } catch (SQLException e) {
-            // Re-throw with a message the servlets/frontend can show as-is,
-            // instead of a raw driver stack trace.
             throw new SQLException("Could not reach the database. Is MySQL running and reachable at "
                     + safeHost() + "? (" + e.getMessage() + ")", e.getSQLState(), e);
         }
@@ -102,7 +101,6 @@ public class DBConnection {
     }
 
     private static String safeHost() {
-        // Strip credentials-free host:port out of the JDBC URL for error messages.
         try {
             String withoutProto = URL.substring(URL.indexOf("//") + 2);
             int slash = withoutProto.indexOf('/');
@@ -112,7 +110,6 @@ public class DBConnection {
         }
     }
 
-    /** Wraps a real connection so close() returns it to the pool instead of destroying it. */
     private static Connection wrap(Connection real) {
         return (Connection) java.lang.reflect.Proxy.newProxyInstance(
             Connection.class.getClassLoader(),
@@ -133,8 +130,6 @@ public class DBConnection {
 
     private static void release(Connection real) {
         try {
-            // Never hand back a connection with leftover transaction state
-            // or a dirty auto-commit flag to the next borrower.
             if (!real.getAutoCommit()) {
                 try { real.rollback(); } catch (SQLException ignored) { }
                 real.setAutoCommit(true);
