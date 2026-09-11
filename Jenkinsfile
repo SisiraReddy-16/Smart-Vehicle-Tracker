@@ -8,15 +8,17 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Maven Build') {
             steps {
-                checkout scm
+                dir('backend') {
+                    sh 'mvn clean package'
+                }
             }
         }
 
-        stage('Maven Build') {
+        stage('Verify WAR') {
             steps {
-                sh 'mvn clean package'
+                sh 'ls -lh backend/target/'
             }
         }
 
@@ -29,11 +31,11 @@ pipeline {
 
     post {
         success {
-            echo 'Build and Docker image creation completed successfully!'
+            echo 'Build successful: WAR created and Docker image built.'
         }
 
         failure {
-            echo 'Pipeline failed. Check the Jenkins console output.'
+            echo 'Pipeline failed. Check the stage that reported the error.'
         }
     }
 }
