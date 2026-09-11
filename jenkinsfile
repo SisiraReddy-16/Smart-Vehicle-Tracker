@@ -1,115 +1,39 @@
 pipeline {
     agent any
- 
+
     tools {
-        maven "MAVEN3.9"
-        jdk "JDK21"
+        maven 'Maven'
+        jdk 'JDK8'
     }
- 
-    environment {
-        AWS_REGION     = 'ap-south-1'                             // <-- set your region
-        AWS_ACCOUNT_ID = '123456789012'                           // <-- set your AWS account id
-        APP_NAME       = 'smart-vehicle-tracker'
-        ECR_REPO       = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APP_NAME}"
-        DEPLOY_HOST    = 'ec2-user@<ec2-public-ip>'               // <-- set your app EC2 host
-    }
- 
-    options {
-        timestamps()
-        buildDiscarder(logRotator(numToKeepStr: '10'))
-    }
- 
+
     stages {
- 
-        stage('Checkout from GitHub') {
+
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/SisiraReddy-16/Smart-Vehicle-Tracker.git'
+                checkout scm
             }
         }
- 
+
         stage('Maven Build') {
             steps {
-                dir('backend') {
-                    sh 'mvn -B clean install -DskipTests'
-                }
-            }
-            post {
-                success {
-                    archiveArtifacts artifacts: 'backend/target/*.war', fingerprint: true
-                }
+                sh 'mvn clean package'
             }
         }
- 
-        stage('SonarQube Analysis') {
-            environment {
-                scannerHome = tool 'sonar8.0'
-            }
+
+        stage('Build Docker Image') {
             steps {
-                dir('backend') {
-                    withSonarQubeEnv('sonarserver') {
-                        sh '''${scannerHome}/bin/sonar-scanner \
-                          -Dsonar.projectKey=smart-vehicle-tracker \
-                          -Dsonar.projectName=smart-vehicle-tracker \
-                          -Dsonar.projectVersion=1.0.${BUILD_NUMBER} \
-                          -Dsonar.sources=src/main/java \
-                          -Dsonar.java.binaries=target/classes
-                        '''
-                    }
-                }
-            }
-        }
- 
-        stage('Docker Build & Push to ECR') {
-            steps {
-                // build context = repo root - the Dockerfile needs to see both backend/ and frontend/
-                withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh '''
-                        aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}
-                        docker build -t ${ECR_REPO}:${BUILD_NUMBER} -t ${ECR_REPO}:latest .
-                        docker push ${ECR_REPO}:${BUILD_NUMBER}
-                        docker push ${ECR_REPO}:latest
-                    '''
-                }
-            }
-        }
- 
-        stage('Deploy (nginx + app) to EC2') {
-            steps {
-                withCredentials([
-                    sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'SSH_KEY'),
-                    usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY'),
-                    usernamePassword(credentialsId: 'db-creds', usernameVariable: 'DB_USER', passwordVariable: 'DB_PASSWORD')
-                ]) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${DEPLOY_HOST} "mkdir -p ~/svt"
-                        scp -o StrictHostKeyChecking=no -i $SSH_KEY docker-compose.yml nginx.conf ${DEPLOY_HOST}:~/svt/
- 
-                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${DEPLOY_HOST} "
-                          export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-                          export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-                          aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO} &&
-                          cd ~/svt &&
-                          cat > .env <<EOF
-APP_IMAGE=${ECR_REPO}:${BUILD_NUMBER}
-DB_URL=jdbc:mysql://<your-mysql-host>:3306/garagepulse?useSSL=true&serverTimezone=UTC
-DB_USER=${DB_USER}
-DB_PASSWORD=${DB_PASSWORD}
-EOF
-                          docker compose pull &&
-                          docker compose up -d --remove-orphans
-                        "
-                    '''
-                }
+                sh 'docker build -t smart-vehicle-tracker:1.0.0 .'
             }
         }
     }
- 
+
     post {
         success {
-            echo "Deployed. Open http://<ec2-public-ip>/ - point a domain's A record at that IP whenever you're ready, then add HTTPS with certbot."
+            echo 'Build and Docker image creation completed successfully!'
         }
+
         failure {
-            echo 'Pipeline failed - check the stage logs above.'
+            echo 'Pipeline failed. Check the Jenkins console output.'
         }
     }
 }
