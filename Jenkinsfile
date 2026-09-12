@@ -11,7 +11,7 @@ pipeline {
         ECR_REPO = '600307629942.dkr.ecr.ap-southeast-2.amazonaws.com/smart-vehicile'
         IMAGE_NAME = 'smart-vehicle-tracker'
         IMAGE_TAG = 'latest'
-        APP_EC2 = 'ubuntu@3.27.194.24'
+        APP_EC2 = 'ubuntu@3.107.202.91'
     }
 
     stages {
