@@ -1,3 +1,4 @@
+```groovy
 pipeline {
     agent any
 
@@ -9,7 +10,6 @@ pipeline {
     environment {
         AWS_REGION = 'ap-southeast-2'
         ECR_REPO = '600307629942.dkr.ecr.ap-southeast-2.amazonaws.com/smart-vehicile'
-        IMAGE_TAG = 'latest'
     }
 
     stages {
@@ -63,11 +63,23 @@ pipeline {
                 }
             }
         }
+
+        stage('Test SSH to Application EC2') {
+            steps {
+                sshagent(['app-ec2-ssh']) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no \
+                        ubuntu@3.27.194.24 \
+                        "echo SSH connection successful"
+                    '''
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo 'CI pipeline successful: Maven build → Docker build → ECR push completed.'
+            echo 'CI + SSH test completed successfully.'
         }
 
         failure {
@@ -75,4 +87,4 @@ pipeline {
         }
     }
 }
-
+```
