@@ -1,17 +1,5 @@
-/**
- * Shared API helper loaded by every screen.
- * Centralizes the backend base URL, session-cookie handling, and what
- * happens when a session expires (401) or the backend/DB can't be
- * reached at all - one place to change instead of repeating this logic
- * (and its bugs) on every page.
- */
-
-// Same host the page itself was loaded from, so this keeps working
-// whether you're on localhost, a LAN IP, or a real domain - only the
-// port/context path need to match your Tomcat deployment. Falls back to
-// "localhost" if the page was opened directly from disk (file://).
 const API_HOST = window.location.hostname || 'localhost';
-const API_BASE = `http://${API_HOST}:8080/smart-vehicle-tracker/api`;
+const API_BASE = `http://${API_HOST}:8080/api`;
 
 async function apiFetch(path, options = {}) {
   let res;
