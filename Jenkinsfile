@@ -14,8 +14,7 @@ pipeline {
         IMAGE_NAME = 'smart-vehicle-tracker'
         IMAGE_TAG = 'latest'
 
-        // Current Application EC2 public IP
-        APP_EC2 = 'ubuntu@3.107.202.91'
+        APP_EC2 = 'ubuntu@54.66.11.133'
     }
 
     stages {
