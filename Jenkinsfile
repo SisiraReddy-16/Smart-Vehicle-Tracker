@@ -31,7 +31,7 @@ pipeline {
         // APPLICATION EC2
         // ==============================
 
-        APP_EC2 = 'ubuntu@54.253.195.125'
+        APP_EC2 = 'ubuntu@3.26.132.181'
 
         // ==============================
         // DOCKER CONTAINER
