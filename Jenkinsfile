@@ -17,7 +17,7 @@ pipeline {
 
         ECR_REGISTRY = '600307629942.dkr.ecr.ap-southeast-2.amazonaws.com'
 
-        ECR_REPO = '600307629942.dkr.ecr.ap-southeast-2.amazonaws.com/smart-vehicle'
+        ECR_REPO = '600307629942.dkr.ecr.ap-southeast-2.amazonaws.com/smart-vehicile'
 
         // ==============================
         // DOCKER CONFIGURATION
