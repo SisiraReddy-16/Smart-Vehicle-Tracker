@@ -1,5 +1,5 @@
 const API_HOST = window.location.hostname || 'localhost';
-const API_BASE = `http://${API_HOST}:8080/api`;
+const API_BASE = `https://${API_HOST}/api`;
 
 async function apiFetch(path, options = {}) {
   let res;

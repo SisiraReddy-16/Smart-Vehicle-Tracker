@@ -1,4 +1,3 @@
-// GaragePulse - Sign Up screen behaviour
 const form = document.getElementById('signup-form');
 const errorBox = document.getElementById('form-error');
 const submitBtn = document.getElementById('submit-btn');
@@ -30,7 +29,6 @@ form.addEventListener('submit', async function (e) {
   } else if (result) {
     showError(result.message || 'Signup failed. Please try again.');
   }
-  // If result is null, apiFetch already showed the connection banner.
 });
 
 function showError(message) {
